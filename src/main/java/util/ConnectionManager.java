@@ -8,6 +8,14 @@ import java.sql.SQLException;
  * @author Oksana Poliakova on 18.07.2023
  * @projectName FlightMVC
  */
+
+/**
+ * It manages the database connection for the application.
+ * It loads the PostgreSQL JDBC driver, reads the database connection properties from a properties file,
+ * and offers a static method to retrieve a database connection.
+ * It simplifies the process of obtaining and managing a database connection in the application.
+ */
+
 public final class ConnectionManager {
     private static final String URL_KEY = "db.url";
     private static final String USER_KEY = "db.user";

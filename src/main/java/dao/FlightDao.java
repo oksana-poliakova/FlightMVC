@@ -15,6 +15,11 @@ import java.util.Optional;
  * @author Oksana Poliakova on 18.07.2023
  * @projectName FlightMVC
  */
+
+/** Class that implements the Dao interface for working with objects
+ * It provides access to Flight data and provides basic CRUD operations
+ * to manage Flight objects in the data source.
+ */
 public class FlightDao implements Dao<Long, Flight> {
     private static final FlightDao INSTANCE = new FlightDao();
 
@@ -66,6 +71,7 @@ public class FlightDao implements Dao<Long, Flight> {
         return INSTANCE;
     }
 
+    // Extracting column values from the ResultSet and creating a new Flight object
     private Flight buildFlight(ResultSet resultSet) throws SQLException {
         return new Flight(
                 resultSet.getObject("id", Long.class),

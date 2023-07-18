@@ -12,23 +12,29 @@ import static java.util.stream.Collectors.toList;
  * @projectName FlightMVC
  */
 public class TicketService {
+    // Singleton instance of TicketService
     private static final TicketService INSTANCE = new TicketService();
 
+    // TicketDao instance for data access
     private final TicketDao ticketDao = TicketDao.getInstance();
 
     private TicketService() {
     }
 
     public List<TicketDto> findAllByFlightId(Long flightId) {
+        // Retrieve list of tickets by flightId from ticketDao
         return ticketDao.findAllByFlightId(flightId).stream()
+                // Map each Ticket object to TicketDto object
                 .map(ticket -> new TicketDto(
                         ticket.getId(),
                         ticket.getFlightId(),
                         ticket.getSeatNo()
                 ))
+                // Collect TicketDto objects into a list
                 .collect(toList());
     }
 
+    // Return the singleton instance of TicketService
     public static TicketService getInstance() {
         return INSTANCE;
     }

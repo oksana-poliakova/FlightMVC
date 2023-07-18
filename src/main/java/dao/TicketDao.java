@@ -14,6 +14,11 @@ import java.util.Optional;
  * @author Oksana Poliakova on 18.07.2023
  * @projectName FlightMVC
  */
+
+/** Class that implements the Dao interface for working with objects
+ * It provides access to Ticket data and provides basic CRUD operations
+ * to manage Ticket objects in the data source.
+ */
 public class TicketDao implements Dao<Long, Ticket> {
 
     private static final TicketDao INSTANCE = new TicketDao();
