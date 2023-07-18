@@ -2,6 +2,7 @@ package dao;
 
 import entity.Flight;
 import entity.FlightStatus;
+import util.ConnectionManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
