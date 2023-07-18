@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.FlightService;
+import service.TicketService;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,26 +14,25 @@ import java.nio.charset.StandardCharsets;
  * @author Oksana Poliakova on 18.07.2023
  * @projectName FlightMVC
  */
-@WebServlet("/flights")
-public class FlightServlet extends HttpServlet {
 
-    private final FlightService flightService = FlightService.getInstance();
+@WebServlet("/tickets")
+public class TicketServlet extends HttpServlet {
+    private final TicketService ticketService = TicketService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var flightId = Long.valueOf(req.getParameter("flightId"));
+
         resp.setContentType("text/html");
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
-
         try (var printWriter = resp.getWriter()) {
-            printWriter.write("<h1>List of flights:</h1>");
+            printWriter.write("<h1>Purchased tickets:</h1>");
             printWriter.write("<ul>");
-            flightService.findAll().forEach(flightDto -> {
-                printWriter.write("""
-                        <li>
-                            <a href="/tickets?flightId=%d">%s</a>
-                        </li>
-                        """.formatted(flightDto.getId(), flightDto.getDescription()));
-            });
+            ticketService.findAllByFlightId(flightId).forEach(ticketDto -> printWriter.write("""
+                    <li>
+                        %s
+                    </li>
+                    """.formatted(ticketDto.getSeatNo())));
             printWriter.write("</ul>");
         }
     }
