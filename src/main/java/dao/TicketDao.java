@@ -54,6 +54,7 @@ public class TicketDao implements Dao<Long, Ticket> {
     }
 
     private Ticket buildTicket(ResultSet resultSet) throws SQLException {
+
         return new Ticket(
                 resultSet.getObject("id", Long.class),
                 resultSet.getObject("passenger_no", String.class),

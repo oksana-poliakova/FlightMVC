@@ -1,6 +1,7 @@
 package service;
 
 import dao.TicketDao;
+import dto.FlightDto;
 import dto.TicketDto;
 
 import java.util.List;
@@ -25,11 +26,12 @@ public class TicketService {
         // Retrieve list of tickets by flightId from ticketDao
         return ticketDao.findAllByFlightId(flightId).stream()
                 // Map each Ticket object to TicketDto object
-                .map(ticket -> new TicketDto(
-                        ticket.getId(),
-                        ticket.getFlightId(),
-                        ticket.getSeatNo()
-                ))
+                .map(ticket -> TicketDto.builder()
+                        .id(ticket.getId())
+                        .flightId(ticket.getFlightId())
+                        .seatNo(ticket.getSeatNo())
+                        .build()
+                )
                 // Collect TicketDto objects into a list
                 .collect(toList());
     }

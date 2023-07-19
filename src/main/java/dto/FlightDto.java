@@ -1,5 +1,7 @@
 package dto;
 
+import lombok.*;
+
 import java.util.Objects;
 
 /**
@@ -13,44 +15,11 @@ import java.util.Objects;
  * Additionally, it overrides the equals, hashCode, and toString methods for proper object comparison and string representation.
  * The class serves as a container for transporting flight data between different layers or components of an application.
  */
+
+@Value
+@Builder
+
 public class FlightDto {
     private final Long id;
     private final String description;
-
-    public FlightDto(Long id, String description) {
-        this.id = id;
-        this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    // Compares the flight identifiers and descriptions
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FlightDto flightDto = (FlightDto) o;
-        return Objects.equals(id, flightDto.id) &&
-               Objects.equals(description, flightDto.description);
-    }
-
-    // Generates a hash code
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, description);
-    }
-
-    @Override
-    public String toString() {
-        return "FlightDto{" +
-               "id=" + id +
-               ", description='" + description + '\'' +
-               '}';
-    }
 }

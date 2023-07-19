@@ -28,18 +28,15 @@ public class FlightService {
     }
 
     public List<FlightDto> findAll() {
-        // Retrieves a list of all flights from the flightDao
         return flightDao.findAll().stream()
-                // Maps each Flight object to a FlightDto object
-                .map(flight -> new FlightDto(
-                        // Sets the id of the FlightDto object with the id of the Flight object
-                        flight.getId(),
-                        // Sets the description of the FlightDto object with formatted departure airport code, arrival airport code, and status
-                        """
-                            %s - %s - %s
-                        """.formatted(flight.getDepartureAirportCode(), flight.getArrivalAirportCode(), flight.getStatus())
-                ))
-                // Collects the FlightDto objects into a list
+                .map(flight -> FlightDto.builder()
+                        .id(flight.getId())
+                        .description(
+                                """
+                                    %s - %s - %s
+                                """.formatted(flight.getDepartureAirportCode(), flight.getArrivalAirportCode(), flight.getStatus()))
+                        .build()
+                )
                 .collect(toList());
     }
 
