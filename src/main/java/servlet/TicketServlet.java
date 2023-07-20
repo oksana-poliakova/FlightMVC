@@ -28,15 +28,14 @@ public class TicketServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var flightId = Long.valueOf(req.getParameter("flightId"));
-
         resp.setContentType("text/html");
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
+
         try (var printWriter = resp.getWriter()) {
             printWriter.write("<h1>Purchased tickets:</h1>");
             printWriter.write("<ul>");
             // Iterating over each TicketDto object and printing each seat number as a list item
-            ticketService.findAllByFlightId(flightId).forEach(ticketDto -> printWriter.write("""
+            ticketService.findAllByFlightId(1L).forEach(ticketDto -> printWriter.write("""
                     <li>
                         %s
                     </li>
