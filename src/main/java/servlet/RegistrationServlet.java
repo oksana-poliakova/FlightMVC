@@ -4,6 +4,7 @@ import dto.CreateUserDto;
 import entity.User;
 import exception.ValidationException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import java.util.List;
  */
 
 @WebServlet("/registration")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024)
 public class RegistrationServlet extends HttpServlet {
     private final UserService userService = UserService.getInstance();
     @Override
@@ -37,6 +39,7 @@ public class RegistrationServlet extends HttpServlet {
         final CreateUserDto userDto = CreateUserDto.builder()
                 .name(req.getParameter("name"))
                 .birthday(req.getParameter("birthday"))
+                .image(req.getPart("image"))
                 .email(req.getParameter("email"))
                 .gender(req.getParameter("gender"))
                 .password(req.getParameter("password"))

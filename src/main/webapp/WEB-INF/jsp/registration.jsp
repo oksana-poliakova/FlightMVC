@@ -15,9 +15,9 @@
 <body>
 
 <h3>Registration form</h3>
-<form action="/registration" method="post">
+<form action="/registration" method="post" enctype="multipart/form-data">
     <label for="name">Name:
-        <input type="text" name="name" id="name">
+        <input type="text" name="name" id="name" required>
     </label>
     <br>
     <label for="birthday">Birthday:
@@ -25,11 +25,11 @@
     </label>
     <br>
     <label for="emailId">Email:
-        <input type="text" name="email" id="emailId">
+        <input type="text" name="email" id="emailId" required>
     </label>
     <br>
     <label for="passwordId">Password:
-        <input type="password" name="password" id="passwordId">
+        <input type="password" name="password" id="passwordId" required>
     </label>
     <br>
     <label>
@@ -42,6 +42,10 @@
     <label>
         <input type="radio" name="gender" value="MALE"> Male
         <input type="radio" name="gender" value="FEMALE"> Female
+    </label>
+    <br>
+    <label for="imageId">Image
+        <input type="file" name="image" id="imageId">
     </label>
     <br>
     <button type="submit">Send</button>
