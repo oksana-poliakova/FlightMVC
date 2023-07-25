@@ -1,49 +1,25 @@
 package dao;
 
 import entity.User;
-import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import util.ConnectionManager;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-
-import static java.sql.Statement.RETURN_GENERATED_KEYS;
-import static lombok.AccessLevel.PRIVATE;
 
 /**
  * @author oksanapoliakova on 25.07.2023
  * @projectName FlightMVC
  */
-@NoArgsConstructor(access = PRIVATE)
 public class UserDao implements Dao<Integer, User> {
 
-    private static final UserDao INSTANCE = new UserDao();
+    public static final UserDao INSTANCE = new UserDao();
 
     private static final String SAVE_SQL =
-            "INSERT INTO users (name, birthday, email, password, role, gender) VALUES (?, ?, ?, ?, ?, ?)";
-
-    @Override
-    @SneakyThrows
-    public User save(User entity) {
-        try (var connection = ConnectionManager.get();
-             var preparedStatement = connection.prepareStatement(SAVE_SQL, RETURN_GENERATED_KEYS)) {
-            preparedStatement.setObject(1, entity.getName());
-            preparedStatement.setObject(2, entity.getBirthday());
-            preparedStatement.setObject(3, entity.getEmail());
-            preparedStatement.setObject(4, entity.getPassword());
-            preparedStatement.setObject(5, entity.getRole().name());
-            preparedStatement.setObject(6, entity.getGender().name());
-
-            preparedStatement.executeUpdate();
-
-            var generatedKeys = preparedStatement.getGeneratedKeys();
-            generatedKeys.next();
-            entity.setId(generatedKeys.getObject("id", Integer.class));
-
-            return entity;
-        }
-    }
+            "INSERT INTO users (name, birthday, email, password, role, gender) " +
+            "VALUES (?, ?, ?, ?, ?, ?)";
 
     @Override
     public List<User> findAll() {
@@ -63,6 +39,30 @@ public class UserDao implements Dao<Integer, User> {
     @Override
     public void update(User entity) {
 
+    }
+
+    @Override
+    @SneakyThrows
+    public User save(User entity) {
+        try (var connection = ConnectionManager.get();
+        var preparedStatement = connection.prepareStatement(SAVE_SQL)) {
+            preparedStatement.setObject(1, entity.getName());
+            preparedStatement.setObject(2, entity.getBirthday());
+            preparedStatement.setObject(3, entity.getEmail());
+            preparedStatement.setObject(4, entity.getPassword());
+            preparedStatement.setObject(5, entity.getRole().name());
+            preparedStatement.setObject(6, entity.getGender().name());
+
+            preparedStatement.executeUpdate();
+
+            var generatedKeys = preparedStatement.getGeneratedKeys();
+            generatedKeys.next();
+
+            entity.setId(generatedKeys.getObject("id", Integer.class));
+        } catch (SQLException exception) {
+            throw exception;
+        }
+        return entity;
     }
 
     public static UserDao getInstance() {
