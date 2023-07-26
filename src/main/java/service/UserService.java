@@ -2,6 +2,9 @@ package service;
 
 import dao.UserDao;
 import dto.CreateUserDto;
+import dto.UserDto;
+import entity.User;
+import mapper.UserMapper;
 import validator.CreateUserValidator;
 import exception.ValidationException;
 import lombok.AccessLevel;
@@ -10,6 +13,7 @@ import lombok.SneakyThrows;
 import mapper.CreateUserMapper;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 /**
  * @author oksanapoliakova on 25.07.2023
@@ -22,6 +26,13 @@ public class UserService {
     private final UserDao userDao = UserDao.getInstance();
     private final CreateUserMapper createUserMapper = CreateUserMapper.getInstance();
     private final ImageService imageService = ImageService.getInstance();
+
+    private final UserMapper userMapper = UserMapper.getInstance();
+
+    public Optional<UserDto> login(String email, String password) {
+        return userDao.findByEmailAndPassword(email, password)
+                .map(userMapper::mapFrom);
+    }
 
 
     @SneakyThrows

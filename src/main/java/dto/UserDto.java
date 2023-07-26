@@ -1,7 +1,11 @@
 package dto;
 
+import entity.Gender;
+import entity.Role;
 import lombok.Builder;
 import lombok.Value;
+
+import java.time.LocalDate;
 
 /**
  * @author oksanapoliakova on 26.07.2023
@@ -11,6 +15,11 @@ import lombok.Value;
 @Value
 @Builder
 public class UserDto {
-    Long id;
-    String mail;
+    Integer id;
+    String name;
+    LocalDate birthday;
+    String email;
+    String image;
+    Role role;
+    Gender gender;
 }
