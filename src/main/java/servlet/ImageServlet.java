@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import service.ImageService;
+import util.UrlPath;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +17,7 @@ import java.io.InputStream;
  * @projectName FlightMVC
  */
 
-@WebServlet("/images/*")
+@WebServlet(UrlPath.IMAGES + "/*")
 public class ImageServlet extends HttpServlet {
     private final ImageService imageService = ImageService.getInstance();
 
