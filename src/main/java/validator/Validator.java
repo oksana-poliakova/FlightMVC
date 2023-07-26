@@ -1,4 +1,4 @@
-package dto.validator;
+package validator;
 
 /**
  * @author oksanapoliakova on 25.07.2023

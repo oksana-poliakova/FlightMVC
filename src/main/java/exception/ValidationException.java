@@ -1,6 +1,6 @@
 package exception;
 
-import dto.validator.Error;
+import validator.Error;
 import lombok.Getter;
 
 import java.util.List;

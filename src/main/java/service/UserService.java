@@ -2,7 +2,7 @@ package service;
 
 import dao.UserDao;
 import dto.CreateUserDto;
-import dto.validator.CreateUserValidator;
+import validator.CreateUserValidator;
 import exception.ValidationException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

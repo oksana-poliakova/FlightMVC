@@ -1,4 +1,4 @@
-package dto.validator;
+package validator;
 
 import lombok.Getter;
 
