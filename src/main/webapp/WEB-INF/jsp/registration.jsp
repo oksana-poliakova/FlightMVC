@@ -14,6 +14,7 @@
 </head>
 <body>
 
+<img src="https://img.freepik.com/free-photo/puppy-that-is-walking-snow_1340-37228.jpg" alt="Puppy" width="550" height="350">
 <h3>Registration form</h3>
 <form action="/registration" method="post" enctype="multipart/form-data">
     <label for="name">Name:
