@@ -9,12 +9,8 @@ import java.util.ResourceBundle;
  */
 public class LocaleRunner {
     public static void main(String[] args) {
-        Locale locale = new Locale.Builder().setLanguage("en").setScript("Latn").setRegion("GB").build();
-//        Locale locale = new Locale("ua", "UA");
-        System.out.println(Locale.US);
-        System.out.println(Locale.getDefault());
+        Locale locale = new Locale.Builder().setLanguage("uk").setScript("Cyrl").setRegion("UA").build();
 
         var translations = ResourceBundle.getBundle("translations", locale);
-        System.out.println(translations.getString("page.login.password"));
     }
 }
