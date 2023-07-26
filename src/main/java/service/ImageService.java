@@ -19,22 +19,43 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
  * @projectName FlightMVC
  */
 
+/**
+ * Service for working with images.
+ * This class provides functionality for uploading and retrieving images.
+ */
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ImageService {
     private static final ImageService INSTANCE = new ImageService();
 
+    // The base path for storing images, obtained from the configuration file.
     private final String basePath = PropertiesUtil.get("image.base.url");
+
+    /**
+     * Method for uploading an image at the specified path.
+     * @param imagePath    The path for saving the image.
+     * @param imageContent The input stream containing the image data.
+     * @throws IOException Thrown in case of input/output errors while saving the image.
+     */
 
     @SneakyThrows
     public void upload(String imagePath, InputStream imageContent) {
         var imageFullPath = Path.of(basePath, imagePath);
         try (imageContent) {
+            // Create directories for the image path if they don't exist.
             Files.createDirectories(imageFullPath.getParent());
+            // Write the image data to the specified path.
             Files.write(imageFullPath, imageContent.readAllBytes(), CREATE, TRUNCATE_EXISTING);
         } catch (IOException exception) {
             throw exception;
         }
     }
+
+    /**
+     * Method for retrieving an image at the specified path.
+     * @param imagePath The path to the image.
+     * @return Returns an Optional containing the input stream of the image data if the image is found.
+     */
 
     @SneakyThrows
     public Optional<InputStream> get(String imagePath) {
