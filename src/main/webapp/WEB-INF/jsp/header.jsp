@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>Some header</h2>
+<% if (session.getAttribute("user") != null) { %>
+<% } %>
 </body>
 </html>
